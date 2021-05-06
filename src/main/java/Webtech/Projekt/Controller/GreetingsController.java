@@ -9,5 +9,5 @@ public class GreetingsController {
     public String index(){
         return "Hello world!";
     }
-
+    //Hard Reset
 }
