@@ -1,37 +1,21 @@
 package Webtech.Projekt.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.env.Environment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import java.util.Optional;
 
 @RestController
 public class GreetingsController {
+
+    @Autowired
+    private Environment env;
     @RequestMapping("/")
     public String index() {
-        return "Hello world!";
+        String testEnvValue = Optional.of(env.getProperty("Test_VALUE")).orElse("Environment variable not found");
+        return "Hello bad trader! You just tried an environment variable" +testEnvValue;
     }
 }
-//    @Entity
-//    public class Product {
-//        @Id
-//        @GeneratedValue(strategy= GenerationType.IDENTITY)
-//        private Long id;
-//        private String name;
-//        private int priceontime;
-//
-//        public Waehrung() {}
-//        public Waehrung(String name,int priceontime) {
-//            this.name= name;
-//            this.priceontime=priceontime;
-//        }
-//    }
-
-//    @Autowired
-//    private WaehrungRepository wearungRepository;
-    //Hard Reset
 
