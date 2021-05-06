@@ -16,20 +16,20 @@ public class GreetingsController {
         return "Hello world!";
     }
 }
-    @Entity
-    public class Product {
-        @Id
-        @GeneratedValue(strategy= GenerationType.IDENTITY)
-        private Long id;
-        private String name;
-        private int priceontime;
-
-        public Waehrung() {}
-        public Waehrung(String name,int priceontime) {
-            this.name= name;
-            this.priceontime=priceontime;
-        }
-    }
+//    @Entity
+//    public class Product {
+//        @Id
+//        @GeneratedValue(strategy= GenerationType.IDENTITY)
+//        private Long id;
+//        private String name;
+//        private int priceontime;
+//
+//        public Waehrung() {}
+//        public Waehrung(String name,int priceontime) {
+//            this.name= name;
+//            this.priceontime=priceontime;
+//        }
+//    }
 
 //    @Autowired
 //    private WaehrungRepository wearungRepository;
