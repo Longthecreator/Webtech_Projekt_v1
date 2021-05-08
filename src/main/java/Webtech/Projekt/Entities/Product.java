@@ -21,7 +21,23 @@ public class Product {
         this.name =name;
         this.price = price;
     }
-//    public List returnAllProducts(){
+
+    public String toString(){
+        return String.format("Cryptocurreny:[id=%id, name=%name, price=%price]",id,name,price);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+    //    public List returnAllProducts(){
 //
 //    }
 }
