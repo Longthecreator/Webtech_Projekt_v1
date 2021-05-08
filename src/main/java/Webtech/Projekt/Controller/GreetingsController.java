@@ -20,7 +20,7 @@ public class GreetingsController {
     @Autowired
     private ProductRepository productRepository;
 
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String index() {
         return "Hello World";
         //        String testEnvValue = Optional.of(env.getProperty("Test_VALUE")).orElse("Environment variable not found");
