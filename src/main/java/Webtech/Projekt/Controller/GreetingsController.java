@@ -22,8 +22,9 @@ public class GreetingsController {
 
     @RequestMapping("/")
     public String index() {
-        String testEnvValue = Optional.of(env.getProperty("Test_VALUE")).orElse("Environment variable not found");
-        return "Hello bad trader! You just tried an environment variable" +testEnvValue;
+        return "Hello World";
+        //        String testEnvValue = Optional.of(env.getProperty("Test_VALUE")).orElse("Environment variable not found");
+//        return "Hello bad trader! You just tried an environment variable" +testEnvValue;
     }
 
 //    @GetMapping("/products")
