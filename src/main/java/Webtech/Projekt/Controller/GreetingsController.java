@@ -5,17 +5,17 @@ import Webtech.Projekt.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.core.env.Environment;
+//import org.springframework.core.env.Environment;
 
-import java.util.List;
-import java.util.Optional;
+//import java.util.List;
+//import java.util.Optional;
 
 @Controller
 @RequestMapping("/test")
 public class GreetingsController {
 
-    @Autowired
-    private Environment env;
+//    @Autowired
+//    private Environment env;
 
     @Autowired
     private ProductRepository productRepository;
