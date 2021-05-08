@@ -26,9 +26,9 @@ public class GreetingsController {
         return "Hello bad trader! You just tried an environment variable" +testEnvValue;
     }
 
-    @GetMapping("/products")
-    public List<Product> allProducts(){
-        return
-    }
+//    @GetMapping("/products")
+//    public List<Product> allProducts(){
+//        return
+//    }
 }
 

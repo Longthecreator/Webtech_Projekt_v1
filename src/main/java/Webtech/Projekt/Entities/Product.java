@@ -21,7 +21,7 @@ public class Product {
         this.name =name;
         this.price = price;
     }
-    public List returnAllProducts(){
-
-    }
+//    public List returnAllProducts(){
+//
+//    }
 }
