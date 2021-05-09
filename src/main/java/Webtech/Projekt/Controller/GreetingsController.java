@@ -28,7 +28,7 @@ public class GreetingsController {
         productRepository.save(n);
         return "Saved"+name;
     }
-
+//
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<Product> getAllProducts(){
         return productRepository.findAll();
