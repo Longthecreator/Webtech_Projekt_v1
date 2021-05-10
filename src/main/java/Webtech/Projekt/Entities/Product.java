@@ -51,5 +51,5 @@ public class Product {
     }
     //    public List returnAllProducts(){
 //
-//    }
+//    }wieso ist das eigentlich noch als ausgeklammert drin?
 }
