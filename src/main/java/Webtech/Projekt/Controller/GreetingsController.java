@@ -3,15 +3,26 @@ package Webtech.Projekt.Controller;
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/test")
+import java.util.Optional;
+
+@RestController
 public class GreetingsController {
 
     @Autowired
+    private Environment env;
+    @Autowired
     private ProductRepository productRepository;
+
+    //TestMethode
+    @RequestMapping("/")
+    public String index(){
+        String testValue = Optional.of(env.getProperty("TEST_VALUE")).orElse("Keine");
+        return "Umgebungsvariable: "+ testValue;
+    }
 
     @PostMapping("/add")
     public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam double price) {
