@@ -19,7 +19,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//developmentOnly 'com.oracle.database.jdbc:ojdbc8'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.postgresql:postgresql:42.2.19'
+	runtimeOnly 'org.postgresql:postgresql'
 }
 
 test {
