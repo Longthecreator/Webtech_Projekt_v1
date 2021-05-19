@@ -1,9 +1,12 @@
 package Webtech.Projekt.Entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 //import java.util.List;
 
 @Entity
@@ -14,6 +17,8 @@ public class Product {
     private Long id;
     private String name;
     private double price;
+    @CreationTimestamp
+    private java.util.Calendar datum;
 
     public Product(){}
 
