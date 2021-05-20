@@ -44,6 +44,8 @@ public class GreetingsController {
     public String home(Model m){
         Data d = new Data(123) m.setAttribute(d.myData);
     return "template";
+
+
     }
 }
 
