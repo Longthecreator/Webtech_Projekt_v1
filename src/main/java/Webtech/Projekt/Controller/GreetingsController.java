@@ -40,12 +40,13 @@ public class GreetingsController {
         return productRepository.findAll();
     }
 
-    @GetMapping("/test")
-    public String home(Model m){
-        Data d = new Data(123) m.setAttribute(d.myData);
-    return "template";
-
-
-    }
+//    @GetMapping("/test")
+//    public String home(Model m){
+//        Data d = new Data(123);
+//        m.setAttribute(d.myData);
+//    return "template";
+//
+//
+//    }
 }
 
