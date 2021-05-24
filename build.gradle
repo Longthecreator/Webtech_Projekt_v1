@@ -21,6 +21,7 @@ dependencies {
 	//implementation 'org.springframwork.boot:spring-boot-starter-security'
 	//implementation 'com.okta.spring:okta-spring-boot-stater:2.0.1'
 	implementation 'org.postgresql:postgresql'
+	testImplementation 'com.h2database:h2:1.4.200'
 
 }
 
