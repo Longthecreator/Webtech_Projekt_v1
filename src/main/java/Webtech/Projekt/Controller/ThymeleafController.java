@@ -13,4 +13,19 @@ public class ThymeleafController {
     public ModelAndView showIndex(){
         return new ModelAndView(ViewNames.INDEX);
     }
+
+    @GetMapping(path = Endpoints.LOGIN)
+    public ModelAndView showLogin(){
+        return new ModelAndView(ViewNames.LOGIN);
+    }
+
+    @GetMapping(path = Endpoints.PRODUCTS)
+    public ModelAndView showProducts(){
+        return new ModelAndView(ViewNames.PRODUCTS);
+    }
+
+    @GetMapping(path = Endpoints.TRADE)
+    public ModelAndView showTrade(){
+        return new ModelAndView(ViewNames.TRADE);
+    }
 }
