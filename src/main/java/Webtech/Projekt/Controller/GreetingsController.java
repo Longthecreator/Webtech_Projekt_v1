@@ -19,13 +19,6 @@ public class GreetingsController {
     @Autowired
     private ProductRepository productRepository;
 
-    //TestMethode
-//    @RequestMapping("/")
-//    public String index(){
-//        String testValue = Optional.of(env.getProperty("TEST_VALUE")).orElse("Keine");
-//        return "Umgebungsvariable: "+ testValue;
-//    }
-
     @PostMapping("/add")
     public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam double price) {
         Product n = new Product();
@@ -40,13 +33,11 @@ public class GreetingsController {
         return productRepository.findAll();
     }
 
-//    @GetMapping("/test")
-//    public String home(Model m){
-//        Data d = new Data(123);
-//        m.setAttribute(d.myData);
-//    return "template";
-//
-//
+//   @GetMapping("/test")
+//   public String home(Model m){
+//      Data d = new Data();
+//       m.setAttribute(d.myData);
+//       return "template";
 //    }
 }
 

@@ -54,6 +54,7 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
     //    public List returnAllProducts(){
 //
 //    }wieso ist das eigentlich noch als ausgeklammert drin?
