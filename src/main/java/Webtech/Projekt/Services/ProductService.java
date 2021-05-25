@@ -1,12 +1,15 @@
 package Webtech.Projekt.Services;
 
 import Webtech.Projekt.Entities.Product;
-import Webtech.Projekt.Repository.ProductRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-public interface ProductService {
+@Repository
+public interface ProductService extends JpaRepository {
     void buyCoin(Product p);
     void sellCoin(Product p);
-    Iterable<Product> fetchAllCoins();
+
+    @Query("SELECT name, price from Product")
+    Product fetchAllCoins();
 }

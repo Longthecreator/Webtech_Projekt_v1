@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Coins</title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th> Name </th>
+    <th> Price </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${products.isEmpty()}">
+    <td colspan="2">No Products available</td>
+  </tr>
+  <tr th:each="product : ${products}">
+    <td><span th:text="${products.name}">Name</span></td>
+    <td><span th:text="${products.price}">Price</span></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
