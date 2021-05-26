@@ -17,8 +17,8 @@
     <td colspan="2">No Products available</td>
   </tr>
   <tr th:each="product : ${products}">
-    <td><span th:text="${products.name}">Name</span></td>
-    <td><span th:text="${products.price}">Price</span></td>
+    <td><span th:text="${product.name}">Name</span></td>
+    <td><span th:text="${product.price}">Price</span></td>
   </tr>
   </tbody>
 </table>

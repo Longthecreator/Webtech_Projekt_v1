@@ -2,7 +2,6 @@ package Webtech.Projekt.Controller;
 
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
-import Webtech.Projekt.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +14,6 @@ public class GreetingsController {
 
     @Autowired
     private ProductRepository productRepository;
-
-    @Autowired
-    private ProductService productService;
 
     @PostMapping("/add")
     public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam double price) {
@@ -35,16 +31,10 @@ public class GreetingsController {
 
     @GetMapping(path= "/allproducts")
     public String productsTable(Model model){
-        List<Product> products = productService.findAll();
+        List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
         return "productstable";
     }
 
-//   @GetMapping("/test")
-//   public String home(Model m){
-//      Data d = new Data();
-//       m.setAttribute(d.myData);
-//       return "template";
-//    }
 }
 
