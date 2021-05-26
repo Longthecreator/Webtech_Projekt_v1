@@ -1,5 +1,6 @@
 package Webtech.Projekt.Controller;
 
+import Webtech.Projekt.CoinMarketCap_API.CmcApi;
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -14,6 +16,8 @@ public class GreetingsController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    private CmcApi cmcApi;
 
     @PostMapping("/add")
     public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam double price) {
@@ -35,6 +39,14 @@ public class GreetingsController {
         model.addAttribute("products", products);
         return "productstable";
     }
+
+    @GetMapping(path="/test")
+    public String testGetRequest(Model model) throws IOException {
+        String response =cmcApi.requestMethodTwo();
+        model.addAttribute(response);
+        return "trade";
+    }
+
 
 }
 
