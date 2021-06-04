@@ -15,10 +15,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" th:href="@{/}"  aria-current="page">Home</a>
-                <a class="nav-link" th:href="@{/coins}">Coins</a>
-                <a class="nav-link" th:href="@{/trade}">Trading</a>
-                <a class="nav-link disabled" th:href="@{/login}" tabindex="-1" aria-disabled="true">Login</a>
+                <a class="nav-link active" th:href="@{/}"  th:classappend="${#request.requestURI == '/' ? 'active':''}">Home</a>
+                <a class="nav-link" th:href="@{/coins}" th:classappend="${#request.requestURI == '/coins' ? 'active':''}">Coins</a>
+                <a class="nav-link" th:href="@{/trade}" th:classappend="${#request.requestURI == '/trade' ? 'active':''}">Trading</a>
+                <a class="nav-link" th:href="@{/login}" th:classappend="${#request.requestURI == '/login' ? 'active':''}">Login</a>
             </div>
         </div>
     </div>
