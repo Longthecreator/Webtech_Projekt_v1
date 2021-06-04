@@ -1,5 +1,12 @@
 package Webtech.Projekt.CoinMarketCap_API;
 
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import okhttp3.OkHttpClient;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.connector.Response;
+
+import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +19,7 @@ public class CmcApi {
 
     private static HttpURLConnection connection;
     final static String apiKey = "9e15cd91-22c8-4f39-b9a5-7050286a806a";
-//    final static String apiKeyHearder= "X-CMC_PRO_API_KEY";
+    final static String apiKeyHeader= "X-CMC_PRO_API_KEY";
     //https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?id=1
 
     public String testRequestMethodOne(){
@@ -75,6 +82,32 @@ public class CmcApi {
                 .thenApply(HttpResponse::body)
                 .thenAccept(System.out::println)
                 .join());
+    }
+
+    public void requestMethodThree(){
+        String response = "nichts";
+        try {
+            URL url = new URL("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?id=1");
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            String apiKey = "9e15cd91-22c8-4f39-b9a5-7050286a806a";
+            connection.setRequestProperty("X-CMC_PRO_API_KEY", apiKey);
+            System.out.println(connection.getResponseCode());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void requestMethodFour() throws UnirestException {
+        Unirest.setTimeouts(0, 0);
+        HttpResponse<String> response = (HttpResponse<String>) Unirest.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?id=1")
+                .header("X-CMC_PRO_API_KEY", "9e15cd91-22c8-4f39-b9a5-7050286a806a").asString();
+        System.out.println(response);
     }
 }
 

@@ -3,6 +3,7 @@ package Webtech.Projekt.Controller;
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +42,14 @@ public class GreetingsController {
     }
 
     @GetMapping(path="/test")
-    public String testGetRequest(Model model) throws IOException {
-        String response =cmcApi.requestMethodTwo();
-        model.addAttribute(response);
-        return "trade";
+    public void testGetRequest(Model model) throws IOException {
+        try {
+            cmcApi.requestMethodFour();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+//        model.addAttribute(response);
+//        return "trade";
     }
 
 
