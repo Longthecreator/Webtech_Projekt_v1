@@ -2,10 +2,7 @@ package Webtech.Projekt.Controller;
 
 public class Vue {
 // ich mach das hier mal extra wir koennen es ja wenn alles funktioniert kopieren
-    const app =Vue.createApp(
-
-
-    {})
+    const app =Vue.createApp({})
 
             app.componenet('buttton-counter',
 
