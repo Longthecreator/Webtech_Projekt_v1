@@ -26,7 +26,7 @@ public class GreetingsController {
         n.setName(name);
         n.setPrice(price);
         productRepository.save(n);
-        return "Saved"+name;
+        return "Saved "+name;
     }
 
     @GetMapping(path = "/all")
