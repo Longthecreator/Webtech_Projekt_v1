@@ -32,7 +32,7 @@ public class CmcApi {
            URL url = new URL("https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/jpy.xml");
            connection = (HttpURLConnection) url.openConnection();
 
-           //Request Setup
+           //Request Setup.
             //connection.setRequestProperty("X-CMC_PRO_API_KEY", apiKey);
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
