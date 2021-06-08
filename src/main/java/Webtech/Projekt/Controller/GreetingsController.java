@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -51,7 +50,11 @@ public class GreetingsController {
 //        model.addAttribute(response);
 //        return "trade";
     }
-
-
+    @PostMapping("/vue")
+    public String vueTest(@ModelAttribute Product product, Model model){
+        productRepository.save(product);
+        model.addAttribute("product", product);
+        return "vue";
+    }
 }
 
