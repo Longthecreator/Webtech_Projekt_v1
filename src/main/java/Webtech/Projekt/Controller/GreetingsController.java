@@ -5,6 +5,8 @@ import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,9 @@ public class GreetingsController {
     private CmcApi cmcApi;
 
     @PostMapping("/add")
-    public @ResponseBody String addNewProduct(@RequestParam String name, @RequestParam double price) {
+    public @ResponseBody String addNewProduct(@AuthenticationPrincipal OidcUser user, @RequestParam String name, @RequestParam double price) {
         Product n = new Product();
+        n.setOwnerEmail(user.getEmail());
         n.setName(name);
         n.setPrice(price);
         productRepository.save(n);
@@ -50,7 +53,8 @@ public class GreetingsController {
 
     }
     @GetMapping("/vue")
-    public String vueTest(@ModelAttribute Product product, Model model){
+    public String vueTest(@AuthenticationPrincipal OidcUser user,@ModelAttribute Product product, Model model){
+        product.setOwnerEmail(user.getEmail());
         productRepository.save(product);
         model.addAttribute("product", product);
         return "vue";

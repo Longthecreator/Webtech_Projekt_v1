@@ -17,6 +17,7 @@ public class Product {
     private Long id;
     private String name;
     private double price;
+    private String ownerEmail;
     @CreationTimestamp
     private java.util.Calendar datum;
 
@@ -43,6 +44,14 @@ public class Product {
         return price;
     }
 
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -54,6 +63,7 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
 
     //    public List returnAllProducts(){
 //
