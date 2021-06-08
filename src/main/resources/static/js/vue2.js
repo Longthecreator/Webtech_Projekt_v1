@@ -1,9 +1,8 @@
 // Create a Vue application
 const app = Vue.createApp({})
-
-// Define a new global component called button-counter
+// const app = {
 app.component('dynamic-form', {
-    template:`
+    template: `
     <div>
         <input v-model="nameField" placeholder="Name" ref="nameInput">
         <input v-model="priceField" placeholder="Price" @keyup.enter="save()">
@@ -34,37 +33,37 @@ app.component('dynamic-form', {
             </table>
     </div>
     `,
-    data(){
-        return{
-        items:[],
-        nameField: '',
-        priceField: '',
+    data() {
+        return {
+            items: [],
+            nameField: '',
+            priceField: '',
         };
-        },
-        
+    },
+
     methods: {
         loadProducts() {
             axios.get('/allProducts')
                 .then(response => (this.items = response.data))
         },
         save() {
-        axios.post('/add', {
-        name: this.nameField,
-        price: this.priceField
-        })
-            .then((response) => {
-            this.nameField = '';
-            this.priceField = '';
-            this.$refs.nameInput.focus();
-            this.loadProducts();
-            }, (error) => {
-                console.log('Could not create trade');
+            axios.post('/add', {
+                name: this.nameField,
+                price: this.priceField
+            })
+                .then((response) => {
+                    this.nameField = '';
+                    this.priceField = '';
+                    this.$refs.nameInput.focus();
+                    this.loadProducts();
+                }, (error) => {
+                    console.log('Could not create trade');
                 });
 
         },
     },
-    mounted: function(){
+    mounted: function () {
         this.loadProducts();
     }
 });
-app.mount('#vue_einbindung')
+app.mount('#dynamic-form');

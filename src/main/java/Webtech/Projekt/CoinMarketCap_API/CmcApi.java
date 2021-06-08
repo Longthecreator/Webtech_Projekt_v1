@@ -110,4 +110,3 @@ public class CmcApi {
         System.out.println(response);
     }
 }
-

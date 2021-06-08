@@ -47,10 +47,9 @@ public class GreetingsController {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-//        model.addAttribute(response);
-//        return "trade";
+
     }
-    @PostMapping("/vue")
+    @GetMapping("/vue")
     public String vueTest(@ModelAttribute Product product, Model model){
         productRepository.save(product);
         model.addAttribute("product", product);
