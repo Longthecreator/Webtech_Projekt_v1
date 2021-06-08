@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 //import java.util.List;
 
 @Entity
@@ -18,14 +20,15 @@ public class Product {
     private String name;
     private double price;
     private String ownerEmail;
-    @CreationTimestamp
-    private java.util.Calendar datum;
+//    @CreationTimestamp
+    private String datum;
 
     public Product(){}
 
     public Product(String name, double price){
         this.name =name;
         this.price = price;
+        this.datum = Calendar.getInstance().getTime().;
     }
 
     public String toString(){

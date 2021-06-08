@@ -12,32 +12,35 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    public void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                //public pages
-//                .antMatchers(
-//                        HttpMethod.GET,
-//                        Endpoints.INDEX,
-//                        Endpoints.COINS
-//                        ).permitAll()
-//                .antMatchers(
-//                        "static/javascript/**"
-//                ).permitAll()
-//                .anyRequest().authenticated()
-//
-//                .and()
-//                .logout().logoutSuccessUrl("/")
-//
-//                .and()
-//                .oauth2Client()
-//                .and()
-//                .oauth2Login();
-//
-//    }
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests().anyRequest().authenticated().and().oauth2Login().and().csrf().disable();
+    public void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                //public pages
+                .antMatchers(
+                        HttpMethod.GET,
+                        Endpoints.INDEX,
+                        Endpoints.COINS
+                        ).permitAll()
+                .antMatchers(
+                        "static/javascript/**"
+                ).permitAll()
+                .anyRequest().authenticated()
+
+                .and()
+                .logout().logoutSuccessUrl("/")
+
+                .and()
+                .oauth2Client()
+                .and()
+                .oauth2Login()
+                .and()
+                .csrf()
+                .disable();
+
     }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception{
+//        http.authorizeRequests().anyRequest().authenticated().and().oauth2Login().and().csrf().disable();
+//    }
 }
