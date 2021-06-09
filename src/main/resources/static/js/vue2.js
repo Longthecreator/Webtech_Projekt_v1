@@ -21,13 +21,17 @@ app.component('dynamic-form', {
             <tr v-if="items.length === 0">
                 <td colspan="2">No balls yet</td>
             </tr>
-            <tr v-for="coin in items">
+            <tr v-for="product in items">
                 <td>{{product.name}}</td>
                 <td>{{product.price}}</td>
             </tr>
+            <h1>Trade Vorschau:</h1>
             <tr>
+                
                 <td>{{ nameField  }}</td>
                 <td>{{ priceField  }}</td>
+                <td>{{ priceField  }}*10</td>
+                
             </tr>
             </tbody>
             </table>

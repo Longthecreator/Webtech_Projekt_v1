@@ -37,8 +37,9 @@ public class GreetingsController {
     }
 
     @GetMapping(path= "/allproducts")
-    public String productsTable(Model model){
-        List<Product> products = productRepository.findAll();
+    public String productsTable(@AuthenticationPrincipal OidcUser user, Model model){
+//        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findByOwnerEmail(user.getEmail());
         model.addAttribute("products", products);
         return "productstable";
     }

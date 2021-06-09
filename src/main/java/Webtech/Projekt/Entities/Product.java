@@ -20,15 +20,14 @@ public class Product {
     private String name;
     private double price;
     private String ownerEmail;
-//    @CreationTimestamp
-    private String datum;
+    @CreationTimestamp
+    private LocalDate datum;
 
     public Product(){}
 
     public Product(String name, double price){
         this.name =name;
         this.price = price;
-        this.datum = Calendar.getInstance().getTime().;
     }
 
     public String toString(){
