@@ -19,6 +19,7 @@ public class GreetingsController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
     private CmcApi cmcApi;
 
     @PostMapping("/add")
@@ -46,16 +47,13 @@ public class GreetingsController {
 
     @GetMapping(path="/test")
     public void testGetRequest(Model model) throws IOException {
-        try {
-            cmcApi.requestMethodFour();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
+        cmcApi.requestMethodTwo();
+        System.out.println(cmcApi.requestMethodTwo());
 
     }
-    @GetMapping("/vue")
+    @RequestMapping("/vue")
     public String vueTest(@AuthenticationPrincipal OidcUser user,@ModelAttribute Product product, Model model){
-        product.setOwnerEmail(user.getEmail());
+//        product.setOwnerEmail(user.getEmail());
         productRepository.save(product);
         model.addAttribute("product", product);
         return "vue";
