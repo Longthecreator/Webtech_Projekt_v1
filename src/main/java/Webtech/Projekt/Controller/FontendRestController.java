@@ -5,10 +5,10 @@ import Webtech.Projekt.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class FontendRestController {
@@ -25,5 +25,12 @@ public class FontendRestController {
         n.setPrice(price);
         productRepository.save(n);
         return "Saved "+name;
+    }
+
+    @GetMapping("/getTrades")
+    public String getUserTrades(@AuthenticationPrincipal OidcUser user, Model model){
+        List<Product> products = productRepository.findByOwnerEmail(user.getEmail());
+        model.addAttribute("products", products);
+        return "productstable";
     }
 }

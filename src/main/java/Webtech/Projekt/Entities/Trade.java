@@ -1,6 +1,10 @@
 package Webtech.Projekt.Entities;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,12 +15,18 @@ public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tradeId;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private double price;
-    private LocalDate creationDate;
+    private double quantity;
     private double changeInPercentage;
-    private LocalDate endDate;
     private double profit;
+    @CreationTimestamp
+    private LocalDate creationDate;
+    @UpdateTimestamp
+    private LocalDate endDate;
+    private boolean status;
     private String ownerEmail;
 
     public Trade(){}
@@ -24,10 +34,10 @@ public class Trade {
     public Trade(String name, double price){
         this.name =name;
         this.price = price;
-        this.creationDate = LocalDate.now();
         this.changeInPercentage=0;
         this.endDate = null;
         this.profit= 0;
+        this.status=true;
     }
 
 
@@ -57,6 +67,22 @@ public class Trade {
     public LocalDate getCreationDate() { return creationDate; }
 
     public String getOwnerEmail() { return ownerEmail; }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public void setOwnerEmail(String ownerEmail) { this.ownerEmail = ownerEmail; }
 

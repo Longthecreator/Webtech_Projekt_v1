@@ -16,7 +16,7 @@ class ProjektApplicationTests {
 
 	@Test
 	void testResonse(){
-		cmcApi.testRequestMethodOne();
+		cmcApi.requestMethodTwo();
 	}
 
 }

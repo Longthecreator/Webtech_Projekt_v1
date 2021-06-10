@@ -27,12 +27,8 @@ dependencies {
 	implementation 'org.postgresql:postgresql'
 	testImplementation 'com.h2database:h2:1.4.200'
 
-	// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
-	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
-	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.1'
-	// https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
-	implementation group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
+	//CSV Reader
+	implementation 'org.apache.commons:commons-csv:1.8'
 
 
 

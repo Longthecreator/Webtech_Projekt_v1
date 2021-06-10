@@ -3,7 +3,7 @@ package Webtech.Projekt.Controller;
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -46,8 +46,8 @@ public class GreetingsController {
     }
 
     @GetMapping(path="/test")
-    public void testGetRequest(Model model) throws IOException {
-        cmcApi.requestMethodTwo();
+    public void testGetRequest(Model model) throws IOException, JSONException, InterruptedException {
+        cmcApi.getCoinData();
         System.out.println(cmcApi.requestMethodTwo());
 
     }
