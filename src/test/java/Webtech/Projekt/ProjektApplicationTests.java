@@ -1,6 +1,7 @@
 package Webtech.Projekt;
 
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,8 +16,8 @@ class ProjektApplicationTests {
 	}
 
 	@Test
-	void testResonse(){
-		cmcApi.requestMethodTwo();
+	void testResonse() throws JSONException, IOException, InterruptedException {
+		cmcApi.getCoinData();
 	}
-
+	//Tests für CmcApi auf https://www.baeldung.com/guide-to-jayway-jsonpath zu finden
 }

@@ -27,8 +27,8 @@ dependencies {
 	implementation 'org.postgresql:postgresql'
 	testImplementation 'com.h2database:h2:1.4.200'
 
-	//CSV Reader
-	implementation 'org.apache.commons:commons-csv:1.8'
+	// https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path
+	implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.6.0'
 
 
 

@@ -1,6 +1,7 @@
 package Webtech.Projekt.Controller;
 
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
+import Webtech.Projekt.Entities.CoinData;
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
 import org.json.JSONException;
@@ -46,9 +47,11 @@ public class GreetingsController {
     }
 
     @GetMapping(path="/test")
-    public void testGetRequest(Model model) throws IOException, JSONException, InterruptedException {
-        cmcApi.getCoinData();
-        System.out.println(cmcApi.requestMethodTwo());
+    public String testGetRequest(Model model) throws IOException, JSONException, InterruptedException {
+//        cmcApi.getCoinData();
+        List<CoinData> allCoinData = cmcApi.getAllData();
+        model.addAttribute("allCoinData", allCoinData);
+        return "test";
 
     }
     @RequestMapping("/vue")
