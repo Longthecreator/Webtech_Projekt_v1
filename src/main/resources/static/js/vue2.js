@@ -61,7 +61,7 @@ app.component('dynamic-form', {
 
     methods: {
         loadProducts() {
-            axios.get('/allproducts')
+            axios.get('/getTrades')
                 .then(response => (this.items = response.data))
         },
         save() {

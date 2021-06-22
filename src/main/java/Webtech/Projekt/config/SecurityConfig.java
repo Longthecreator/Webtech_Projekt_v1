@@ -19,8 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //public pages
                 .antMatchers(
                         HttpMethod.GET,
-                        Endpoints.INDEX,
-                        Endpoints.COINS
+                        Endpoints.INDEX
                         ).permitAll()
                 .antMatchers(
                         "static/javascript/**"
@@ -28,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
 
                 .and()
-                .logout().logoutSuccessUrl("/")
+                .logout().logoutSuccessUrl("http://localhost:8080/logout")
 
                 .and()
                 .oauth2Client()

@@ -1,5 +1,6 @@
 package Webtech.Projekt.Controller;
 
+import Webtech.Projekt.CoinMarketCap_API.CmcApi;
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class FontendRestController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CmcApi cmcApi;
 
     @PostMapping("/addProduct")
     public @ResponseBody

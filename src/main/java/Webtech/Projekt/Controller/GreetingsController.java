@@ -6,6 +6,7 @@ import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Repository.ProductRepository;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@EnableScheduling
 public class GreetingsController {
 
     @Autowired
@@ -46,12 +48,11 @@ public class GreetingsController {
         return "productstable";
     }
 
-    @GetMapping(path="/test")
+    @GetMapping(path="/coins")
     public String testGetRequest(Model model) throws IOException, JSONException, InterruptedException {
-//        cmcApi.getCoinData();
         List<CoinData> allCoinData = cmcApi.getAllData();
         model.addAttribute("allCoinData", allCoinData);
-        return "test";
+        return "coins";
 
     }
     @RequestMapping("/vue")

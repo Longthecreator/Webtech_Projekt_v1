@@ -29,7 +29,7 @@ public class CmcApi {
     public List<CoinData> getAllData(){ return allData;};
 
     @PostConstruct
-    @Scheduled(cron = "*/1 * * * *")
+    //.@Scheduled(cron = "*/5 * * * * *")
     public void getCoinData() throws IOException, InterruptedException, JSONException {
         List<CoinData> newData = new ArrayList<>();
         HttpClient client = HttpClient.newHttpClient();
@@ -37,7 +37,7 @@ public class CmcApi {
                 .header("X-CMC_PRO_API_KEY","9e15cd91-22c8-4f39-b9a5-7050286a806a").build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
-                .thenAccept(System.out::println)
+//                .thenAccept(System.out::println)
                 .join();
         //Response handling
         HttpResponse<String> httpResponse=client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -52,13 +52,8 @@ public class CmcApi {
             CoinData coinData = new CoinData();
             coinData.setName(jsonResponse.read("$['data']['"+id+"']['name']\""));
             coinData.setCurrentPrice(jsonResponse.read("$['data']['"+id+"']['quote']['USD']['price']"));
-            allData.add(coinData);
-
-//            System.out.println(jsonResponse.read("$['data']['"+id+"']['name']\"").getClass());
-//            System.out.println(jsonResponse.read("$['data']['"+id+"']['quote']['USD']['price']").getClass());
-
+            newData.add(coinData);
         }
-        System.out.println("Here are all saved data-----------------------------------------------------");
         for(CoinData cd : allData){
             System.out.println(cd.getName());
             System.out.println(cd.getCurrentPrice());
