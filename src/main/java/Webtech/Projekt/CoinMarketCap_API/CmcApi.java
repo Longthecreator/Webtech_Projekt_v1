@@ -34,7 +34,7 @@ public class CmcApi {
     //jede 30 Sekunden:  "*/30 * * * * *"
     //jede 5 Minuten: "0 */5 * * * *"
     @PostConstruct
-    @Scheduled(cron = " */30 * * * * *")
+//    @Scheduled(cron = " */30 * * * * *")
     public void getCoinData() throws IOException, InterruptedException, JSONException {
         List<CoinData> newData = new ArrayList<>();
         HttpClient client = HttpClient.newHttpClient();

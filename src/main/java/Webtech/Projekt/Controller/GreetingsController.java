@@ -3,7 +3,9 @@ package Webtech.Projekt.Controller;
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
 import Webtech.Projekt.Entities.CoinData;
 import Webtech.Projekt.Entities.Product;
+import Webtech.Projekt.Entities.Trade;
 import Webtech.Projekt.Repository.ProductRepository;
+import Webtech.Projekt.Repository.TradeRepository;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,6 +23,9 @@ public class GreetingsController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private TradeRepository tradeRepository;
 
     @Autowired
     private CmcApi cmcApi;
@@ -57,7 +62,7 @@ public class GreetingsController {
     }
 
     @RequestMapping("/trade")
-    public String trade(@AuthenticationPrincipal OidcUser user,@ModelAttribute Product product, Model model){
+    public String trade(@AuthenticationPrincipal OidcUser user, @ModelAttribute Product product, Model model){
 //        product.setOwnerEmail(user.getEmail());
         productRepository.save(product);
         model.addAttribute("product", product);
