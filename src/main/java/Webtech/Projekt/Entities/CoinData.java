@@ -1,15 +1,15 @@
 package Webtech.Projekt.Entities;
 
-import Webtech.Projekt.Repository.ProductRepository;
+import java.math.BigDecimal;
 
 public class CoinData {
 
     private String name;
-    private double currentPrice;
+    private BigDecimal currentPrice;
 
     public CoinData(){}
 
-    public CoinData(String name, double price){
+    public CoinData(String name, BigDecimal price){
         this.name=name;
         this.currentPrice=price;
     }
@@ -22,11 +22,11 @@ public class CoinData {
         this.name = name;
     }
 
-    public double getCurrentPrice() {
+    public BigDecimal getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(double currentPrice) {
+    public void setCurrentPrice(BigDecimal currentPrice) {
         this.currentPrice = currentPrice;
     }
 }

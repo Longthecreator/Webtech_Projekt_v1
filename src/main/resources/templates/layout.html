@@ -22,7 +22,7 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" th:href="@{/}"  th:classappend="${#request.requestURI == '/' ? 'active':''}">Home</a>
                     <a class="nav-link" th:href="@{/coins}" th:classappend="${#request.requestURI == '/coins' ? 'active':''}">Coins</a>
-                    <a class="nav-link" th:href="@{/vue}" th:classappend="${#request.requestURI == '/vue' ? 'active':''}">Trading</a>
+                    <a class="nav-link" th:href="@{/trade}" th:classappend="${#request.requestURI == '/vue' ? 'active':''}">Trading</a>
                     <div sec:authorize="!isAuthenticated()">
                         <a class="nav-link" th:href="@{/oauth2/authorization/okta}" th:classappend="${#request.requestURI == '/login' ? 'active':''}">Login</a>
                     </div>

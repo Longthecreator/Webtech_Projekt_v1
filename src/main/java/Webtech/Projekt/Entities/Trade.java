@@ -4,12 +4,11 @@ package Webtech.Projekt.Entities;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
 public class Trade {
 
     @Id
@@ -18,32 +17,39 @@ public class Trade {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private double price;
-    private double quantity;
-    private double changeInPercentage;
-    private double profit;
+    private BigDecimal price;
+    @Column(nullable = false)
+    private BigDecimal boughtAt;
+    private double closePrice;
+    @Column(nullable = false)
+    private BigDecimal quantity;
+    @Column(nullable = false)
+    private BigDecimal changeInPercentage;
+    @Column(nullable = false)
+    private BigDecimal profit;
     @CreationTimestamp
     private LocalDate creationDate;
     @UpdateTimestamp
-    private LocalDate endDate;
+    private LocalDate closeDate;
+    @Column(nullable = false)
     private boolean status;
     private String ownerEmail;
 
     public Trade(){}
 
-    public Trade(String name, double price){
+    public Trade(String name, BigDecimal price){
         this.name =name;
         this.price = price;
-        this.changeInPercentage=0;
-        this.endDate = null;
-        this.profit= 0;
+        this.changeInPercentage=new BigDecimal(0);
+        this.closeDate = null;
+        this.profit= new BigDecimal(0);
         this.status=true;
     }
 
 
     //Getter and Setter
     public String toString(){
-        return String.format("Coin:[id=%id, name=%name, price=%price]", tradeId,name,price);
+        return String.format("Coin:[id=%id, name=%name, price=%price]", tradeId,name, price);
     }
 
     public Long getTradeId() {
@@ -54,15 +60,15 @@ public class Trade {
         return name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public double getChangeInPercentage() { return changeInPercentage;}
+    public BigDecimal getChangeInPercentage() { return changeInPercentage;}
 
-    public double getProfit() {return profit; }
+    public BigDecimal getProfit() {return profit; }
 
-    public LocalDate getEndDate() { return endDate; }
+    public LocalDate getCloseDate() { return closeDate; }
 
     public LocalDate getCreationDate() { return creationDate; }
 
@@ -72,11 +78,11 @@ public class Trade {
         return status;
     }
 
-    public double getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
@@ -88,11 +94,11 @@ public class Trade {
 
     public void setCreationDate(LocalDate creationDate) { this.creationDate = creationDate; }
 
-    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+    public void setCloseDate(LocalDate closeDate) { this.closeDate = closeDate; }
 
-    public void setProfit(double profit) { this.profit = profit; }
+    public void setProfit(BigDecimal profit) { this.profit = profit; }
 
-    public void setChangeInPercentage(double changeInPercentage) {this.changeInPercentage = changeInPercentage;}
+    public void setChangeInPercentage(BigDecimal changeInPercentage) {this.changeInPercentage = changeInPercentage;}
 
     public void setTradeId(Long tradeId) {
         this.tradeId = tradeId;
@@ -102,8 +108,23 @@ public class Trade {
         this.name = name;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
+    public BigDecimal getBoughtAt() {
+        return boughtAt;
+    }
+
+    public void setBoughtAt(BigDecimal boughtAt) {
+        this.boughtAt = boughtAt;
+    }
+
+    public double getClosePrice() {
+        return closePrice;
+    }
+
+    public void setClosePrice(double closePrice) {
+        this.closePrice = closePrice;
+    }
 }

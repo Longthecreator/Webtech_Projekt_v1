@@ -1,7 +1,7 @@
-// Create a Vue application
+
 const app = Vue.createApp({})
-// const app = {
-app.component('dynamic-form', {
+
+app.component('trading-dynamic-exchange', {
     template: `
     <div>
         <input v-model="nameField" placeholder="Name" ref="nameInput">
@@ -16,8 +16,6 @@ app.component('dynamic-form', {
             <th scope="col">Name</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Creationdate</th>
-            <th scope="col">P/L</th>
             </tr>
             </thead>
             <tbody>
@@ -25,18 +23,22 @@ app.component('dynamic-form', {
                 <td>{{ nameField  }}</td>
                 <td>{{ priceField  }}€</td>
                 <td>Exchangerate / {{ priceField  }}</td>
-                <td> 01.01.2021T10:49:1222</td>
-                <td> -100 €</td>
             </tr>
             </tbody>
             </table>
         
         <h3>Here are all your trades:</h3>
-        <table>
+        <table class="table">
             <thead>
             <tr>
+                <th>#</th>
                 <th>Name</th>
-                <th>Price</th>
+                <th>Price $</th>
+                <th>Quantity</th>
+                <th>Bought at $</th>
+                <th>%</th>
+                <th>P/L</th>
+                <th>Created at</th>
             </tr>
             </thead>
             <tbody>
@@ -44,8 +46,14 @@ app.component('dynamic-form', {
                 <td colspan="2">No trades -> no balls</td>
             </tr>
             <tr v-for="product in items">
+                <td>#</td>
                 <td>{{product.name}}</td>
                 <td>{{product.price}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.boughtAt}}</td>
+                <td>{{product.changeInPercentage}}%</td>
+                <td>{{product.profit}}</td>
+                <td>{{product.creationDate}}</td>
             </tr>
             </tbody>
             </table>
@@ -61,11 +69,11 @@ app.component('dynamic-form', {
 
     methods: {
         loadProducts() {
-            axios.get('/getTrades')
+            axios.get('/getActualTrades')
                 .then(response => (this.items = response.data))
         },
         save() {
-            axios.post('/addProduct?name='+this.nameField+'&price='+this.priceField, {
+            axios.post('/doTrade?name='+this.nameField+'&price='+this.priceField, {
                 name: this.nameField,
                 price: this.priceField
             })
@@ -84,4 +92,4 @@ app.component('dynamic-form', {
         this.loadProducts();
     }
 });
-app.mount('#dynamic-form');
+app.mount('#trading-dynamic-exchange');

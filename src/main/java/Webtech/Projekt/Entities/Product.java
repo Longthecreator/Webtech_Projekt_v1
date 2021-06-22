@@ -66,8 +66,4 @@ public class Product {
         this.price = price;
     }
 
-
-    //    public List returnAllProducts(){
-//
-//    }wieso ist das eigentlich noch als ausgeklammert drin?
 }
