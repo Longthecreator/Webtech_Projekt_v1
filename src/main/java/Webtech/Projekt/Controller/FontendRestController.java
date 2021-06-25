@@ -1,6 +1,7 @@
 package Webtech.Projekt.Controller;
 
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
+import Webtech.Projekt.Entities.CoinData;
 import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Entities.Trade;
 import Webtech.Projekt.Repository.ProductRepository;
@@ -80,6 +81,22 @@ public class FontendRestController {
 //        return productRepository.findByOwnerEmail(user.getEmail());
 //    }
 
+    @GetMapping("/getCoinData")
+    public List<CoinData> bla(){
+        return cmcApi.getAllData();
+    }
+
+    @GetMapping("/closeTrade")
+    public void closeTrade(@AuthenticationPrincipal OidcUser user, Long id){
+        List<Trade> tradeList= tradeRepository.findTradeByOwnerEmail(user.getEmail());
+        for(Trade t : tradeList) {
+            if (t.getTradeId() == id) {
+                t.setStatus(false);
+                tradeRepository.save(t);
+            }
+        }
+    }
+
     @GetMapping("/getActualTrades")
     public List<Trade> getActualUserTrades(@AuthenticationPrincipal OidcUser user, Model model){
         MathContext mc = new MathContext(2);
@@ -103,7 +120,22 @@ public class FontendRestController {
             }
             trade.setProfit(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt()));
             trade.setChangeInPercentage(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), 5,RoundingMode.HALF_UP).multiply(new BigDecimal(100)));
+            tradeRepository.save(trade);
+            List<CoinData> allCoinData = cmcApi.getAllData();
+            model.addAttribute("allCoinData", allCoinData);
+//            model.addAttribute("Coindata", cmcApi.getAllData());
         }
         return tradeRepository.findTradeByOwnerEmail(user.getEmail());
+    }
+
+    @GetMapping("/getTotalOpenTrades")
+    public BigDecimal totalOpenTrades(@AuthenticationPrincipal OidcUser user){
+        List<Trade> tradeList = tradeRepository.findTradeByOwnerEmail(user.getEmail());
+        BigDecimal totalOpen = new BigDecimal(0);
+        for(Trade trade : tradeList){
+            totalOpen = totalOpen.add(trade.getProfit());
+        }
+        System.out.println("Total:"+totalOpen);
+        return totalOpen;
     }
 }

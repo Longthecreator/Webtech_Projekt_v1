@@ -29,12 +29,14 @@ public class CmcApi {
     final static String apiKeyHeader= "X-CMC_PRO_API_KEY";
     private List<CoinData> allData = new ArrayList<>();
     public List<CoinData> getAllData(){ return allData;};
+
+
     //Cron jobs:
     //jede 5 sekunden: "*/5 * * * * *"
     //jede 30 Sekunden:  "*/30 * * * * *"
     //jede 5 Minuten: "0 */5 * * * *"
     @PostConstruct
-//    @Scheduled(cron = " */30 * * * * *")
+    @Scheduled(cron = "0 */5 * * * *")
     public void getCoinData() throws IOException, InterruptedException, JSONException {
         List<CoinData> newData = new ArrayList<>();
         HttpClient client = HttpClient.newHttpClient();
@@ -54,10 +56,10 @@ public class CmcApi {
         for(int i: coinIds){
             idList.add(i);
         }
-        for(Integer id : idList){
+        for(Integer id : idList) {
             CoinData coinData = new CoinData();
-            coinData.setName(jsonResponse.read("$['data']['"+id+"']['name']\""));
-            coinData.setCurrentPrice(new BigDecimal(jsonResponse.read("$['data']['"+id+"']['quote']['USD']['price']").toString()));
+            coinData.setName(jsonResponse.read("$['data']['" + id + "']['name']\""));
+            coinData.setCurrentPrice(new BigDecimal(jsonResponse.read("$['data']['" + id + "']['quote']['USD']['price']").toString()));
             newData.add(coinData);
         }
         for(CoinData cd : allData){
