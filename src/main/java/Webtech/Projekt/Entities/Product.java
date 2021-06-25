@@ -7,10 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-//import java.util.List;
-
 @Entity
 public class Product {
 

@@ -20,7 +20,8 @@ public class Trade {
     private BigDecimal price;
     @Column(nullable = false)
     private BigDecimal boughtAt;
-    private double closePrice;
+    @Column(nullable = true)
+    private BigDecimal closePrice;
     @Column(nullable = false)
     private BigDecimal quantity;
     @Column(nullable = false)
@@ -30,7 +31,7 @@ public class Trade {
     @CreationTimestamp
     private LocalDate creationDate;
     @UpdateTimestamp
-    private LocalDate closeDate;
+    private LocalDate closeDate; //bzw. lastUpdated
     @Column(nullable = false)
     private boolean status;
     private String ownerEmail;
@@ -120,11 +121,11 @@ public class Trade {
         this.boughtAt = boughtAt;
     }
 
-    public double getClosePrice() {
+    public BigDecimal getClosePrice() {
         return closePrice;
     }
 
-    public void setClosePrice(double closePrice) {
+    public void setClosePrice(BigDecimal closePrice) {
         this.closePrice = closePrice;
     }
 }

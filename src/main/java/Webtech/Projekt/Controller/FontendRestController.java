@@ -2,9 +2,7 @@ package Webtech.Projekt.Controller;
 
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
 import Webtech.Projekt.Entities.CoinData;
-import Webtech.Projekt.Entities.Product;
 import Webtech.Projekt.Entities.Trade;
-import Webtech.Projekt.Repository.ProductRepository;
 import Webtech.Projekt.Repository.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,14 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 public class FontendRestController {
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private TradeRepository tradeRepository;
@@ -33,7 +27,7 @@ public class FontendRestController {
     @PostMapping("/doTrade")
     public @ResponseBody
     Trade doTrade(@AuthenticationPrincipal OidcUser user, @RequestParam String name, @RequestParam BigDecimal price){
-        MathContext mc = new MathContext(2);
+        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
         int coinId=0;
         if(name.equals("Bitcoin")){
             coinId=0;
@@ -50,22 +44,19 @@ public class FontendRestController {
         else if(name.equals("Cardano")){
             coinId= 4;
         }
-        BigDecimal currentBitcoinPrice = cmcApi.getAllData().get(coinId).getCurrentPrice();
+        BigDecimal currentCoinPrice = cmcApi.getAllData().get(coinId).getCurrentPrice();
         Trade trade = new Trade();
         trade.setOwnerEmail(user.getEmail());
         trade.setName(cmcApi.getAllData().get(coinId).getName());
         trade.setPrice(price);
         trade.setStatus(true);
+        trade.setClosePrice(new BigDecimal(0));
         trade.setBoughtAt(cmcApi.getAllData().get(coinId).getCurrentPrice());
-        trade.setQuantity(price.divide(cmcApi.getAllData().get(coinId).getCurrentPrice(), 5, RoundingMode.HALF_UP));
+        trade.setQuantity(price.divide(currentCoinPrice, mc).multiply(new BigDecimal(1)));
         trade.setProfit(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt()));
-        trade.setChangeInPercentage(currentBitcoinPrice.subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), 5,RoundingMode.HALF_UP).multiply(new BigDecimal(100)));
-
-
+        trade.setChangeInPercentage(currentCoinPrice.subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), mc).multiply(new BigDecimal(100)));
         return tradeRepository.save(trade);
     }
-
-
 
     @GetMapping("/getCoinData")
     public List<CoinData> bla(){
@@ -78,6 +69,23 @@ public class FontendRestController {
         for(Trade t : tradeList) {
             if (t.getTradeId() == tradeId) {
                 t.setStatus(false);
+                int coinId=0;
+                if(t.getName().equals("Bitcoin")){
+                    coinId=0;
+                }
+                else if(t.getName().equals("Litecoin")){
+                    coinId=1;
+                }
+                else if(t.getName().equals("Dogecoin")){
+                    coinId= 2;
+                }
+                else if(t.getName().equals("Ethereum")){
+                    coinId= 3;
+                }
+                else if(t.getName().equals("Cardano")){
+                    coinId= 4;
+                }
+                t.setClosePrice(cmcApi.getAllData().get(coinId).getCurrentPrice());
                 tradeRepository.save(t);
             }
         }
@@ -85,7 +93,7 @@ public class FontendRestController {
 
     @GetMapping("/getActualTrades")
     public List<Trade> getActualUserTrades(@AuthenticationPrincipal OidcUser user, Model model){
-        MathContext mc = new MathContext(2);
+        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
         List<Trade> tradeList= tradeRepository.findTradeByOwnerEmailAndStatusIsTrueOrderByTradeId(user.getEmail());
         int coinId=0;
         for(Trade trade: tradeList){
@@ -104,13 +112,11 @@ public class FontendRestController {
             else if(trade.getName().equals("Cardano")){
                 coinId= 4;
             }
-            trade.setProfit(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt()));
-            trade.setChangeInPercentage(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), 5,RoundingMode.HALF_UP).multiply(new BigDecimal(100)));
+            trade.setProfit((cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt())).multiply(trade.getQuantity()));
+            trade.setChangeInPercentage(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), mc).multiply(new BigDecimal(100)));
             tradeRepository.save(trade);
-//            List<CoinData> allCoinData = cmcApi.getAllData();
-//            model.addAttribute("allCoinData", allCoinData);
         }
-        return tradeRepository.findTradeByOwnerEmail(user.getEmail());
+        return tradeList;
     }
 
     @GetMapping("/getAllClosedTrades")
@@ -120,7 +126,7 @@ public class FontendRestController {
 
     @GetMapping("/getTotalOpenTrades")
     public BigDecimal totalOpenTrades(@AuthenticationPrincipal OidcUser user){
-        List<Trade> tradeList = tradeRepository.findTradeByOwnerEmailAndStatusOrderByTradeId(user.getEmail(), true);
+        List<Trade> tradeList = tradeRepository.findTradeByOwnerEmailAndStatusIsTrueOrderByTradeId(user.getEmail());
         BigDecimal totalOpen = new BigDecimal(0);
         for(Trade trade : tradeList){
             totalOpen = totalOpen.add(trade.getProfit());
@@ -139,4 +145,5 @@ public class FontendRestController {
         System.out.println("Total:"+totalOpen);
         return totalOpen;
     }
+
 }

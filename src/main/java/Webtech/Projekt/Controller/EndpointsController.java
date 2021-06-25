@@ -2,10 +2,6 @@ package Webtech.Projekt.Controller;
 
 import Webtech.Projekt.CoinMarketCap_API.CmcApi;
 import Webtech.Projekt.Entities.CoinData;
-import Webtech.Projekt.Entities.Product;
-import Webtech.Projekt.Entities.Trade;
-import Webtech.Projekt.Repository.ProductRepository;
-import Webtech.Projekt.Repository.TradeRepository;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,13 +15,7 @@ import java.util.List;
 
 @Controller
 @EnableScheduling
-public class GreetingsController {
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private TradeRepository tradeRepository;
+public class EndpointsController {
 
     @Autowired
     private CmcApi cmcApi;
