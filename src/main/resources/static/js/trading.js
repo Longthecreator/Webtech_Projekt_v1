@@ -21,15 +21,15 @@ app.component('trading-dynamic-exchange', {
         </select>
         <input v-model="priceField2" placeholder="Price" @keyup.enter="save()">
         <button class="btn btn-success" type="button" @click="saveButton()">TRADE!</button>
-<!--        test ende-->
-    </div>
-    <div>
+        
         <select v-model="selectClose" ref="closeInput">
-        <option disabled value="">Close a trade</option>
-        <option v-for="trade in items">{{ trade.tradeId }}</option>
+            <option disabled value="">Close a trade by id</option>
+            <option v-for="trade in items">{{ trade.tradeId }}</option>
         </select>
         <button class="btn btn-danger" type="button" @click="closeButton()">CLOSE!</button>
+
     </div>
+
     <div>
            <h4>Trade Vorschau:</h4>
             <table class="table">
@@ -38,7 +38,6 @@ app.component('trading-dynamic-exchange', {
             <th scope="col">Name</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
-<!--            <th scope="col">test</th>-->
             </tr>
             </thead>
             <tbody>
@@ -46,7 +45,6 @@ app.component('trading-dynamic-exchange', {
                 <td>{{ selected  }}</td>
                 <td>{{ priceField2  }}$</td>
                 <td v-if="selected === Bitcoin">{{ priceField2/list[0].currentPrice }}</td>
-<!--                <td v-if="selected===Bitcoin">{{ priceField2*list[0].currentPrice}}</td>-->
             </tr>
             </tbody>
             </table>
@@ -73,7 +71,6 @@ app.component('trading-dynamic-exchange', {
             <tr v-if="items.length === 0">
                 <td colspan="2">No trades -> no balls</td>
             </tr>
-<!--            v-if="product.status==='true'"-->
             <tr v-for="product in items">
                 <td>{{ product.tradeId }}</td>
                 <td>{{product.name}}</td>
@@ -119,21 +116,6 @@ app.component('trading-dynamic-exchange', {
                 console.log('Could not close trade')
             });
         },
-        // save() {
-        //     axios.post('/doTrade?name='+this.nameField+'&price='+this.priceField, {
-        //         name: this.nameField,
-        //         price: this.priceField
-        //     })
-        //         .then((response) => {
-        //             this.nameField = '';
-        //             this.priceField = '';
-        //             this.$refs.nameInput.focus();
-        //             this.loadProducts();
-        //         }, (error) => {
-        //             console.log('Could not create trade');
-        //         });
-        //
-        // },
         saveButton(){
             axios.post('/doTrade?name='+this.selected+'&price='+this.priceField2, {
                 name: this.selected,
