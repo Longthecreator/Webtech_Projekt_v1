@@ -19,7 +19,6 @@ app.component('trading-dynamic-exchange', {
           <option>Ethereum</option>
           <option>Cardano</option>
         </select>
-        <span>Selected: {{ selected }}</span>
         <input v-model="priceField2" placeholder="Price" @keyup.enter="save()">
         <button class="btn btn-success" type="button" @click="saveButton()">TRADE!</button>
 <!--        test ende-->

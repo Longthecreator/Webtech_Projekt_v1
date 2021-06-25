@@ -37,5 +37,10 @@ public class EndpointsController {
     public String trade(@AuthenticationPrincipal OidcUser user){
         return "trade";
     }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "logout";
+    }
 }
 
