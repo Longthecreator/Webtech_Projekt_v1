@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -64,33 +65,18 @@ public class FontendRestController {
         return tradeRepository.save(trade);
     }
 
-//    @PostMapping("/addProduct")
-//    public @ResponseBody
-//    String addNewProduct(@AuthenticationPrincipal OidcUser user, @RequestParam String name, @RequestParam double price) {
-//        Product n = new Product();
-//        n.setOwnerEmail(user.getEmail());
-//        n.setName(name);
-//        n.setPrice(price);
-//        productRepository.save(n);
-//        return "Saved "+name;
-//    }
-//    @GetMapping("/getTrades")
-//    public List<Product> getUserTrades(@AuthenticationPrincipal OidcUser user, Model model){
-////        List<Product> products = productRepository.findByOwnerEmail(user.getEmail());
-////        model.addAttribute("products", products);
-//        return productRepository.findByOwnerEmail(user.getEmail());
-//    }
+
 
     @GetMapping("/getCoinData")
     public List<CoinData> bla(){
         return cmcApi.getAllData();
     }
 
-    @GetMapping("/closeTrade")
-    public void closeTrade(@AuthenticationPrincipal OidcUser user, Long id){
+    @PostMapping("/closeTrade")
+    public void closeTrade(@AuthenticationPrincipal OidcUser user,@RequestParam Long tradeId){
         List<Trade> tradeList= tradeRepository.findTradeByOwnerEmail(user.getEmail());
         for(Trade t : tradeList) {
-            if (t.getTradeId() == id) {
+            if (t.getTradeId() == tradeId) {
                 t.setStatus(false);
                 tradeRepository.save(t);
             }
@@ -100,7 +86,7 @@ public class FontendRestController {
     @GetMapping("/getActualTrades")
     public List<Trade> getActualUserTrades(@AuthenticationPrincipal OidcUser user, Model model){
         MathContext mc = new MathContext(2);
-        List<Trade> tradeList= tradeRepository.findTradeByOwnerEmail(user.getEmail());
+        List<Trade> tradeList= tradeRepository.findTradeByOwnerEmailAndStatusIsTrueOrderByTradeId(user.getEmail());
         int coinId=0;
         for(Trade trade: tradeList){
             if(trade.getName().equals("Bitcoin")){
@@ -121,16 +107,31 @@ public class FontendRestController {
             trade.setProfit(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt()));
             trade.setChangeInPercentage(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), 5,RoundingMode.HALF_UP).multiply(new BigDecimal(100)));
             tradeRepository.save(trade);
-            List<CoinData> allCoinData = cmcApi.getAllData();
-            model.addAttribute("allCoinData", allCoinData);
-//            model.addAttribute("Coindata", cmcApi.getAllData());
+//            List<CoinData> allCoinData = cmcApi.getAllData();
+//            model.addAttribute("allCoinData", allCoinData);
         }
         return tradeRepository.findTradeByOwnerEmail(user.getEmail());
     }
 
+    @GetMapping("/getAllClosedTrades")
+    public List<Trade> getClosedTrades(@AuthenticationPrincipal OidcUser user){
+        return tradeRepository.findTradeByOwnerEmailAndStatusOrderByTradeId(user.getEmail(), false);
+    }
+
     @GetMapping("/getTotalOpenTrades")
     public BigDecimal totalOpenTrades(@AuthenticationPrincipal OidcUser user){
-        List<Trade> tradeList = tradeRepository.findTradeByOwnerEmail(user.getEmail());
+        List<Trade> tradeList = tradeRepository.findTradeByOwnerEmailAndStatusOrderByTradeId(user.getEmail(), true);
+        BigDecimal totalOpen = new BigDecimal(0);
+        for(Trade trade : tradeList){
+            totalOpen = totalOpen.add(trade.getProfit());
+        }
+        System.out.println("Total:"+totalOpen);
+        return totalOpen;
+    }
+
+    @GetMapping("/getTotalClosedTrades")
+    public BigDecimal totalClosedTrades(@AuthenticationPrincipal OidcUser user){
+        List<Trade> tradeList = tradeRepository.findTradeByOwnerEmailAndStatusOrderByTradeId(user.getEmail(), false);
         BigDecimal totalOpen = new BigDecimal(0);
         for(Trade trade : tradeList){
             totalOpen = totalOpen.add(trade.getProfit());

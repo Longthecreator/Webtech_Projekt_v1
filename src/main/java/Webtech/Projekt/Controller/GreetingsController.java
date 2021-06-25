@@ -30,29 +30,6 @@ public class GreetingsController {
     @Autowired
     private CmcApi cmcApi;
 
-//    @PostMapping("/add")
-//    public @ResponseBody String addNewProduct(@AuthenticationPrincipal OidcUser user, @RequestParam String name, @RequestParam double price) {
-//        Product n = new Product();
-//        n.setOwnerEmail(user.getEmail());
-//        n.setName(name);
-//        n.setPrice(price);
-//        productRepository.save(n);
-//        return "Saved "+name;
-//    }
-
-//    @GetMapping(path = "/all")
-//    public @ResponseBody Iterable<Product> getAllProducts(){
-//        return productRepository.findAll();
-//    }
-
-//    @GetMapping(path= "/allproducts")
-//    public String productsTable(@AuthenticationPrincipal OidcUser user, Model model){
-//        List<Product> products = productRepository.findAll();
-//        List<Product> products = productRepository.findByOwnerEmail(user.getEmail());
-//        model.addAttribute("products", products);
-//        return "productstable";
-//    }
-
     @GetMapping(path="/coins")
     public String testGetRequest(Model model) throws IOException, JSONException, InterruptedException {
         List<CoinData> allCoinData = cmcApi.getAllData();
@@ -61,11 +38,13 @@ public class GreetingsController {
 
     }
 
+    @GetMapping(path="/history")
+    public String history(@AuthenticationPrincipal OidcUser user, Model model) {
+        return "history";
+    }
+
     @RequestMapping("/trade")
-    public String trade(@AuthenticationPrincipal OidcUser user, @ModelAttribute Product product, Model model){
-//        product.setOwnerEmail(user.getEmail());
-        productRepository.save(product);
-        model.addAttribute("product", product);
+    public String trade(@AuthenticationPrincipal OidcUser user){
         return "trade";
     }
 }

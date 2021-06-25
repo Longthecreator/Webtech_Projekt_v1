@@ -12,7 +12,7 @@ app.component('trading-dynamic-exchange', {
     <div>
 <!--        Test Anfang-->
         <select v-model="selected" ref="coinNameInput">
-          <option disabled value="">Wähle ein Coin aus</option>
+          <option disabled value="">Choose a coin</option>
           <option>Bitcoin</option>
           <option>Litecoin</option>
           <option>Dogecoin</option>
@@ -21,8 +21,15 @@ app.component('trading-dynamic-exchange', {
         </select>
         <span>Selected: {{ selected }}</span>
         <input v-model="priceField2" placeholder="Price" @keyup.enter="save()">
-        <button type="button" @click="saveButton()">TRADE!</button>
+        <button class="btn btn-success" type="button" @click="saveButton()">TRADE!</button>
 <!--        test ende-->
+    </div>
+    <div>
+        <select v-model="selectClose" ref="closeInput">
+        <option disabled value="">Close a trade</option>
+        <option v-for="trade in items">{{ trade.tradeId }}</option>
+        </select>
+        <button class="btn btn-danger" type="button" @click="closeButton()">CLOSE!</button>
     </div>
     <div>
            <h4>Trade Vorschau:</h4>
@@ -39,7 +46,7 @@ app.component('trading-dynamic-exchange', {
             <tr>
                 <td>{{ selected  }}</td>
                 <td>{{ priceField2  }}$</td>
-                <td>Exchangerate / {{ priceField  }}</td>
+                <td v-if="selected === Bitcoin">{{ priceField2/list[0].currentPrice }}</td>
 <!--                <td v-if="selected===Bitcoin">{{ priceField2*list[0].currentPrice}}</td>-->
             </tr>
             </tbody>
@@ -49,11 +56,11 @@ app.component('trading-dynamic-exchange', {
         <h2 class="text-center">Total profit/loss:    {{ total }}$ </h2>
         
         </div>
-        <h3>Open Trades:</h3>
+        <h3>Open positions:</h3>
         <table class="table">
             <thead>
             <tr>
-                <th>#</th>
+                <th>id</th>
                 <th>Name</th>
                 <th>Price $</th>
                 <th>Quantity</th>
@@ -68,7 +75,7 @@ app.component('trading-dynamic-exchange', {
                 <td colspan="2">No trades -> no balls</td>
             </tr>
 <!--            v-if="product.status==='true'"-->
-            <tr v-for="(product, index) in items">
+            <tr v-for="product in items">
                 <td>{{ product.tradeId }}</td>
                 <td>{{product.name}}</td>
                 <td>{{product.price}}</td>
@@ -101,8 +108,17 @@ app.component('trading-dynamic-exchange', {
             axios.get('/getCoinData')
                 .then(response =>(this.list = response.data))
         },
-        close(){
-          axios.post('/closeTrade')
+        closeButton(){
+          axios.post('/closeTrade?tradeId='+this.selectClose,{
+              tradeId: this.selectClose
+        })
+            .then((response) => {
+                this.selectClose = '';
+                this.$refs.closeInput.focus();
+                this.loadProducts();
+            }, (error) =>{
+                console.log('Could not close trade')
+            });
         },
         // save() {
         //     axios.post('/doTrade?name='+this.nameField+'&price='+this.priceField, {
@@ -125,8 +141,8 @@ app.component('trading-dynamic-exchange', {
                 price: this.priceField2
             })
                 .then((response) => {
-                    this.nameField = '';
-                    this.priceField = '';
+                    this.selected = '';
+                    this.priceField2 = '';
                     this.$refs.coinNameInput.focus();
                     this.loadProducts();
                 }, (error) => {

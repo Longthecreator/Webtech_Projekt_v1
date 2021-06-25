@@ -11,4 +11,6 @@ import java.util.List;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
 
     List<Trade> findTradeByOwnerEmail(String ownerEmail);
+    List<Trade> findTradeByOwnerEmailAndStatusOrderByTradeId(String ownerEmail, boolean status);
+    List<Trade> findTradeByOwnerEmailAndStatusIsTrueOrderByTradeId(String ownerEmail);
 }

@@ -27,7 +27,8 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" th:href="@{/}"  th:classappend="${#request.requestURI == '/' ? 'active':''}">Home</a>
                     <a class="nav-link" th:href="@{/coins}" th:classappend="${#request.requestURI == '/coins' ? 'active':''}">Coins</a>
-                    <a class="nav-link" th:href="@{/trade}" th:classappend="${#request.requestURI == '/vue' ? 'active':''}">Trading</a>
+                    <a class="nav-link" th:href="@{/trade}" th:classappend="${#request.requestURI == '/trade' ? 'active':''}">Trading</a>
+                    <a class="nav-link" th:href="@{/history}" th:classappend="${#request.requestURI == '/history' ? 'active':''}">History</a>
                     <div sec:authorize="!isAuthenticated()">
                         <a class="nav-link" th:href="@{/oauth2/authorization/okta}" th:classappend="${#request.requestURI == '/login' ? 'active':''}">Login</a>
                     </div>
@@ -41,9 +42,9 @@
         </div>
     </nav>
 </header>
-
+<!--<html th:replace="~{layout :: layout (~{::body})}" lang="en" >-->
 <body>
-<h2>Mach dein Move</h2>
+<h1>Trading</h1>
 <div id="trading-dynamic-exchange">
     <trading-dynamic-exchange></trading-dynamic-exchange>
 </div>
