@@ -27,7 +27,7 @@ public class FontendRestController {
     @PostMapping("/doTrade")
     public @ResponseBody
     Trade doTrade(@AuthenticationPrincipal OidcUser user, @RequestParam String name, @RequestParam BigDecimal price){
-        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
+//        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
         int coinId=0;
         if(name.equals("Bitcoin")){
             coinId=0;
@@ -52,9 +52,11 @@ public class FontendRestController {
         trade.setStatus(true);
         trade.setClosePrice(new BigDecimal(0));
         trade.setBoughtAt(cmcApi.getAllData().get(coinId).getCurrentPrice());
-        trade.setQuantity(price.divide(currentCoinPrice, mc).multiply(new BigDecimal(1)));
-        trade.setProfit(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt()));
-        trade.setChangeInPercentage(currentCoinPrice.subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), mc).multiply(new BigDecimal(100)));
+        trade.setQuantity(price.divide(currentCoinPrice, 5, RoundingMode.HALF_UP));
+//        trade.setProfit(cmcApi.getAllData().get(coinId).getCurrentPrice().subtract(trade.getBoughtAt()));
+//        trade.setChangeInPercentage(currentCoinPrice.subtract(trade.getBoughtAt(), mc).divide(trade.getBoughtAt(), mc).multiply(new BigDecimal(100)));
+        trade.setProfit(new BigDecimal(0));
+        trade.setChangeInPercentage(new BigDecimal(0));
         return tradeRepository.save(trade);
     }
 
@@ -93,7 +95,7 @@ public class FontendRestController {
 
     @GetMapping("/getActualTrades")
     public List<Trade> getActualUserTrades(@AuthenticationPrincipal OidcUser user, Model model){
-        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
+        MathContext mc = new MathContext(5, RoundingMode.HALF_UP);
         List<Trade> tradeList= tradeRepository.findTradeByOwnerEmailAndStatusIsTrueOrderByTradeId(user.getEmail());
         int coinId=0;
         for(Trade trade: tradeList){
