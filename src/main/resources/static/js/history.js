@@ -44,7 +44,7 @@ app.component('history', {
 
     methods:{
         totalClosed(){
-            axios.get('getTotalClosedTrades')
+            axios.get('/getTotalClosedTrades')
                 .then(response =>(this.total = response.data))
         },
         loadProducts() {

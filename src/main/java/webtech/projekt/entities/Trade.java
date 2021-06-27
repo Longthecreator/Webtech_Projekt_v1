@@ -1,4 +1,4 @@
-package Webtech.Projekt.Entities;
+package webtech.projekt.entities;
 
 
 import org.hibernate.annotations.CreationTimestamp;

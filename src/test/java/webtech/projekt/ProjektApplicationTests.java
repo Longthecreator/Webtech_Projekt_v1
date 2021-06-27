@@ -1,6 +1,6 @@
-package Webtech.Projekt;
+package webtech.projekt;
 
-import Webtech.Projekt.CoinMarketCap_API.CmcApi;
+import webtech.projekt.coinMarketCap_API.CmcApi;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

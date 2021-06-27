@@ -37,14 +37,12 @@ app.component('trading-dynamic-exchange', {
             <tr>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>{{ selected  }}</td>
                 <td>{{ priceField2  }}$</td>
-                <td v-if="selected === Bitcoin">{{ priceField2/list[0].currentPrice }}</td>
             </tr>
             </tbody>
             </table>
