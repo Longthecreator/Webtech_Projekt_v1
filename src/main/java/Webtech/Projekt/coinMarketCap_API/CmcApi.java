@@ -1,6 +1,6 @@
-package webtech.projekt.coinMarketCap_API;
+package Webtech.Projekt.coinMarketCap_API;
 
-import webtech.projekt.entities.CoinData;
+import Webtech.Projekt.entities.CoinData;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.springframework.scheduling.annotation.Scheduled;

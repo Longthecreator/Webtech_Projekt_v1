@@ -1,9 +1,9 @@
-package webtech.projekt.controller;
+package Webtech.Projekt.controller;
 
-import webtech.projekt.coinMarketCap_API.CmcApi;
-import webtech.projekt.entities.CoinData;
-import webtech.projekt.entities.Trade;
-import webtech.projekt.repository.TradeRepository;
+import Webtech.Projekt.coinMarketCap_API.CmcApi;
+import Webtech.Projekt.entities.CoinData;
+import Webtech.Projekt.entities.Trade;
+import Webtech.Projekt.repository.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;

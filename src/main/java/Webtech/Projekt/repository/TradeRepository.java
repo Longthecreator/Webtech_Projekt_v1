@@ -1,6 +1,6 @@
-package webtech.projekt.repository;
+package Webtech.Projekt.repository;
 
-import webtech.projekt.entities.Trade;
+import Webtech.Projekt.entities.Trade;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

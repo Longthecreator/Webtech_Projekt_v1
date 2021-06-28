@@ -1,4 +1,4 @@
-package webtech.projekt.config;
+package Webtech.Projekt.config;
 
 
 import org.springframework.context.annotation.Configuration;

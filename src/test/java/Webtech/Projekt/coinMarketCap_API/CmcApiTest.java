@@ -1,11 +1,9 @@
-package webtech.projekt.coinMarketCap_API;
+package Webtech.Projekt.coinMarketCap_API;
 
-import org.json.JSONException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import webtech.projekt.entities.CoinData;
+import Webtech.Projekt.entities.CoinData;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package webtech.projekt.controller;
+package Webtech.Projekt.controller;
 
 class FontendRestControllerTest {
 

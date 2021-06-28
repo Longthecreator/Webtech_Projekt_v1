@@ -1,7 +1,7 @@
-package webtech.projekt.controller;
+package Webtech.Projekt.controller;
 
-import webtech.projekt.coinMarketCap_API.CmcApi;
-import webtech.projekt.entities.CoinData;
+import Webtech.Projekt.coinMarketCap_API.CmcApi;
+import Webtech.Projekt.entities.CoinData;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
