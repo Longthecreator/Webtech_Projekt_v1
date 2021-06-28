@@ -1,0 +1,9 @@
+head{
+    background: lightcoral;
+}
+body {
+    background: blue url(static/images/Neue_Bitmap.bmp);
+}
+indextitle{
+    text-align: center;
+}
